@@ -8,6 +8,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+
 const httpServer = http.createServer(app);
 
 const typeDefs = gql`
@@ -28,10 +29,10 @@ const startApolloServer = async (app, httpServer) => {
     resolvers,
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
   });
-};
 
-await server.start();
-server.applyMiddleware({ app });
+  await server.start();
+  server.applyMiddleware({ app });
+};
 
 startApolloServer(app, httpServer);
 
